@@ -52,7 +52,7 @@ import { Bar } from 'vue-chartjs'
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 
-  const apiKey = ref('4PZGPPTPWAHYY74TTG9KA4P831MH7RCBHT');
+  const apiKey = ref('4PZGPPTPWAHYY74TTG9KA4P831MH7RCBHT'); // I registered at Etherscan and create my own API key
   const contractAddress = ref('0xdDb6F90fFb4d3257dd666b69178e5B3c5Bf41136'); // hardcoded your test id
   const transactions = ref(null);
   const loading = ref(true);
@@ -82,7 +82,10 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
   return {
     labels: labels,
-    datasets: [{ data: data }],
+    datasets: [{ 
+      label: "Gas Price",
+      backgroundColor: '#f87979',
+      data: data }],
   };
 };
 

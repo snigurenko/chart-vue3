@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto p-5 h-screen overflow-y-auto bg-gray-200">
-    <div v-if="!dataFeeds" class="text-red-800">to proper fetch the manifests list, please run the server, with includet as separate project</div>
+    <div v-if="dataFeeds" class="text-red-800">to proper fetch the manifests list, please run the server, with includet as separate project</div>
     <div v-for="(feed, key) in dataFeeds" :key="key" class="data-feed bg-white p-6 mb-6 rounded-lg shadow hover:shadow-lg transition-shadow duration-300 ease-in-out">
       <h2 class="text-2xl font-semibold mb-4">{{ key }}</h2>
       <div class="feed-content grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -51,41 +51,7 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
-const contractABI = [
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "getBlockTimestampFromLatestUpdate",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "name": "dataFeedId",
-        "type": "bytes32"
-      }
-    ],
-    "name": "getValueForDataFeed",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  }
-];
+const contractABI = []; // I did not get from where should I take ABI
 
 const dataFeeds = ref({});
 const liveData = ref({});
