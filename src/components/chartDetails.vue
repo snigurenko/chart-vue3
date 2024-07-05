@@ -1,7 +1,12 @@
 <template>
   <div>
-    <h1>Relayer Details</h1>
-    <div v-if="chartData">    <Bar :data="chartData" :options="chartOptions" /></div>
+    <h1>Details Page with chart</h1>
+    <div v-if="loading">
+      <span>Loading...</span>
+    </div>
+    <div v-else>
+      <Bar v-if="chartData" :data="chartData" :options="chartOptions" />
+    </div>
 
   </div>
 </template>
@@ -24,18 +29,20 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 
   const apiKey = ref('4PZGPPTPWAHYY74TTG9KA4P831MH7RCBHT');
-  const contractAddress = ref('0xdDb6F90fFb4d3257dd666b69178e5B3c5Bf41136'); // harcoded your test id
+  const contractAddress = ref('0xdDb6F90fFb4d3257dd666b69178e5B3c5Bf41136'); // hardcoded your test id
   const transactions = ref(null);
+  const loading = ref(true);
 
   const fetchRelayerData = async () => {
         const etherscanUrl = `https://api.etherscan.io/api?module=account&action=txlist&address=${contractAddress.value}&startblock=0&endblock=99999999&sort=asc&apikey=${apiKey.value}`;
+        loading.value = true;
         try {
           const response = await axios.get(etherscanUrl);
           transactions.value = response.data.result;
         } catch (error) {
           console.error('Error fetching relayer data:', error);
         } finally {
-          console.log(123, transactions.value);
+          loading.value = false;
           renderChart();
         }
   };
